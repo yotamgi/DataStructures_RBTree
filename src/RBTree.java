@@ -45,8 +45,6 @@ public class RBTree {
 	 */
 	public int insert(int k, String v) {
 		
-		System.out.println("Inserting "  + Integer.toString(k));
-	   
 	   // insert the node in a normal binary tree way
 	   RBNode y = treePosition(k, head);
 	   
