@@ -35,19 +35,13 @@ public class RBMain {
 		
 		GraphDraw.drawGraph(rb, "After all");		
 		
-		
-		System.out.println(rb.size());
 		System.out.println(rb.delete(30));
-		System.out.println(rb.size());
 		GraphDraw.drawGraph(rb, "ccc");
-		
-		
 		//int[] tmp = rb.keysToArray();
 		//String[] tmp2 = rb.valuesToArray();
 		//for (int i=0;i<10;i++){
 		//	System.out.println("" + tmp[i] +" " + tmp2[i]);
-		//}
-		
+		//}		
 		//GraphDraw.drawGraph(rb, "chek");
 		//System.out.println(rb.max());
 		//System.out.println(rb.min());
