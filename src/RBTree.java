@@ -13,6 +13,7 @@ public class RBTree {
 	 */
 	RBNode dummyNode = new RBNode(0, "", null, null, null, false);
 	RBNode head = new RBNode(Integer.MAX_VALUE, "", dummyNode, dummyNode, null, false);
+	int numberOfNodes = 0;
 	
 	/**
 	 * public boolean empty()
@@ -21,7 +22,9 @@ public class RBTree {
 	 *
 	 */
 	public boolean empty() {
-		return false; // to be replaced by student code
+		if (this.numberOfNodes == 0)
+			return true;
+		return false;
 	}
 
 	/**
@@ -32,7 +35,14 @@ public class RBTree {
 	 */
 	public String search(int k)
 	{
-		return "42";  // to be replaced by student code
+		if (numberOfNodes == 0)
+			return null;
+		RBNode place = treePosition(k, head.left);
+		if (IsLeaf(place))
+			return null;
+		if (place.key == k)
+			return place.val;
+		return null;
 	}
 
     /**
@@ -58,7 +68,7 @@ public class RBTree {
 	   } else {
 		   y.setRight(z);
 	   }
-	   
+	   numberOfNodes++;
 	   return insertFixup(z);
 	}
 	
@@ -164,12 +174,52 @@ public class RBTree {
 	 * returns the number of color switches, or 0 if no color switches were needed.
 	 * returns -1 if an item with key k was not found in the tree.
 	 */
-	public int delete(int k)
-	{
-		return 42;	// to be replaced by student code
+	public int delete(int k) // really isn't working, need to be completed
+	{ 
+		RBNode z = treePosition(k, head);		   
+		if (z.key != k) 
+		   return -1;
+		
+		RBNode y;
+		if (IsLeaf(z.left) || IsLeaf(z.right)){
+			y = z;
+		} else{
+			y = findSuccesor(z);
+		}
+		
+		RBNode x;
+		if (!IsLeaf(y.left)){
+			x = y.left;
+		}else {
+			x = y.right;
+		}
+		if (!IsLeaf(x))
+			x.parent = y.parent;
+		if (y.parent.equals(head)){
+			head.left = x;
+		} else {
+			if (AmILeft(y)){
+				y.parent.left = x;
+			} else {
+				y.parent.right = x;
+			}
+		}
+		
+		if (!y.equals(z))
+			z.key = y.key;
+		numberOfNodes--;
+		if (y.color == false)
+			return deleteFixup(x);
+		return 0;
 	}
 
-   /**
+
+private int deleteFixup(RBNode x) {
+		// TODO Auto-generated method stub
+		return 4;
+	}
+
+/**
     * public String min()
     *
     * Returns the value of the item with the smallest key in the tree,
@@ -177,7 +227,18 @@ public class RBTree {
     */
    public String min()
    {
-	   return "42"; // to be replaced by student code
+	   if (this.empty())
+		   return null;			 
+	   RBNode x = getMin();
+	   return x.val;
+   }
+   
+   public RBNode getMin()
+   {
+	   RBNode x = head;
+	   while (this.IsLeaf(x.left)== false)
+		   x = x.left;
+	   return x;
    }
 
    /**
@@ -188,9 +249,21 @@ public class RBTree {
     */
    public String max()
    {
-	   return "42"; // to be replaced by student code
+	   if (this.empty())
+		   return null;
+	   RBNode x = getMax();
+	   return x.val;
    }
 
+   public RBNode getMax()
+   {
+	   RBNode x = head;
+	   x = x.left;
+	   while (this.IsLeaf(x.right)== false)
+		   x = x.right;
+	   return x;
+   }
+   
   /**
    * public int[] keysToArray()
    *
@@ -199,8 +272,20 @@ public class RBTree {
    */
   public int[] keysToArray()
   {
-        int[] arr = new int[42]; // to be replaced by student code
-        return arr;              // to be replaced by student code
+        int[] arr = new int[0];
+        if (empty())
+        	return arr;
+        arr = new int[numberOfNodes];
+        RBNode x = getMin();
+        RBNode max = getMax();
+        int counter = 0;
+        while (x.key < max.key){
+        	arr[counter] = x.key;
+        	x = findSuccesor(x);
+        	counter++;
+        }
+        arr[counter] = max.key;
+        return arr;
   }
 
   /**
@@ -212,8 +297,20 @@ public class RBTree {
    */
   public String[] valuesToArray()
   {
-        String[] arr = new String[42]; // to be replaced by student code
-        return arr;                    // to be replaced by student code
+	  String[] arr = new String[0];
+      if (empty())
+      	return arr;
+      arr = new String[numberOfNodes];
+      RBNode x = getMin();
+      RBNode max = getMax();
+      int counter = 0;
+      while (x.key < max.key){
+      	arr[counter] = x.val;
+      	x = findSuccesor(x);
+      	counter++;
+      }
+      arr[counter] = max.val;
+      return arr;
   }
 
    /**
@@ -226,7 +323,38 @@ public class RBTree {
     */
    public int size()
    {
-	   return 42; // to be replaced by student code
+	   return this.numberOfNodes;
+   }
+   
+   public boolean IsLeaf (RBNode node){
+	   if (node.key != 0)
+		   return false;
+	   if (node.left != null)
+		   return false;
+	   if (node.right != null)
+		   return false;
+	   return true;
+   }
+   
+   public boolean AmILeft (RBNode node){
+	   RBNode parent = node.parent;
+	   return parent.left.equals(node);
+   }
+   
+   public RBNode findSuccesor(RBNode node) {
+	   RBNode x;
+	   if (IsLeaf(node.right)== false){
+		   x = node.right;
+		   while (IsLeaf(x.left)== false)
+			   x = x.left;
+		   return x;
+	   }
+	   if (AmILeft(node) == true)
+		   return node.parent;
+	   x = node.parent;
+	   while (AmILeft(x) == false)
+		   x = x.parent;
+	   return x.parent;
    }
    
    private RBNode treePosition(int key, RBNode node) {

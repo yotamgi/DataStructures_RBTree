@@ -5,6 +5,10 @@ import javax.swing.JFrame;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 
+// one should download the jgraphx.jar from
+// https://github.com/jgraph/jgraphx/tree/master/lib
+// and make a path to
+
 public class GraphDraw extends JFrame
 {
 
