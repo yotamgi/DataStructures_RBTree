@@ -45,7 +45,6 @@ public class RBMain {
 		//GraphDraw.drawGraph(rb, "chek");
 		//System.out.println(rb.max());
 		//System.out.println(rb.min());
-		//
 	}
 
 }
