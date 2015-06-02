@@ -7,9 +7,8 @@ public class RBMain {
 		
 		// according to https://www.youtube.com/watch?v=rcDF8IqTnyI
 		
-		
 		rb.insert(10, "a");
-		
+
 		rb.insert(20, "b");
 		
 		rb.insert(30, "c");
@@ -26,25 +25,16 @@ public class RBMain {
 		
 		rb.insert(38, "i");
 			
-		rb.insert(28, "j");
+		rb.insert(8, "j");
 		
+		GraphDraw.drawGraph(rb, "After all");
 		
-		System.out.println(rb.delete(40));
-		System.out.println(rb.delete(38));
-		System.out.println(rb.delete(50));
+		int[] tmp = rb.keysToArray();
+		String[] tmp2 = rb.valuesToArray();
+		for (int i=0;i<10;i++){
+			System.out.println("" + tmp[i] +" " + tmp2[i]);
+		}	
 		
-		GraphDraw.drawGraph(rb, "After all");		
-		
-		System.out.println(rb.delete(30));
-		GraphDraw.drawGraph(rb, "ccc");
-		//int[] tmp = rb.keysToArray();
-		//String[] tmp2 = rb.valuesToArray();
-		//for (int i=0;i<10;i++){
-		//	System.out.println("" + tmp[i] +" " + tmp2[i]);
-		//}		
-		//GraphDraw.drawGraph(rb, "chek");
-		//System.out.println(rb.max());
-		//System.out.println(rb.min());
 	}
 
 }

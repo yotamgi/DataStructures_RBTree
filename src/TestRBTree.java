@@ -8,15 +8,43 @@ public class TestRBTree extends TestCase {
 	public void testAdd() throws Exception {
 		Random rnd = new Random();
 		RBTree rb = new RBTree();
+		int counter = 0;
+		
+		for (int i=0; i<100000; i++) {
+			int curr = rnd.nextInt();
+			int x = rb.insert(curr, Integer.toString(curr));
+			if (x!=-1)
+				counter+=x;
+		}
+		System.out.println(counter);
+		
+		testTreeValid(rb);
+	}
+	
+	public void testDelete() throws Exception {
+		Random rnd = new Random();
+		RBTree rb = new RBTree();
+		int counter = 0;
 		
 		for (int i=0; i<100000; i++) {
 			int curr = rnd.nextInt();
 			rb.insert(curr, Integer.toString(curr));
 		}
 		
+		int[] keys = rb.keysToArray();					
+		int curr = rnd.nextInt();
+		curr = curr%1345;
+		
+		for (int i=0; i<10000; i++) {	
+			int x = rb.delete(keys[curr+2*i]);			
+			counter += x;
+			curr++;
+		}
+		System.out.println(counter);
+		
 		testTreeValid(rb);
 	}
-
+	
 	private void testTreeValid(RBTree rb) {
 		Random rnd = new Random();
 		
