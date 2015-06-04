@@ -23,18 +23,29 @@ public class RBTree {
 	/**
 	 * A default node with key=MAX_INT
 	 */
-	RBNode dummyNode = new RBNode(0, "", null, null, null, false);
+	private RBNode dummyNode = new RBNode(0, "", null, null, null, false);
+	
+	/**
+	 * The head node. 
+	 * Its a dummy node and its left child is the real head.
+	 */
 	RBNode head = new RBNode(Integer.MAX_VALUE, "", dummyNode, dummyNode, null, false);
-	int numberOfNodes = 0;	//holds the current number of nodes  
-	RBNode maximum;			//holds the current maximum
-	RBNode minimum;			//holds the current minimum
+	
+	/**
+	 * a field containing the number of nodes currently exist in the tree.
+	 */
+	private int numberOfNodes = 0;
+	
+	/**
+	 * A pointer to the maximum and minimum element of the tree
+	 */
+	private RBNode maximum;			
+	private RBNode minimum;			
 	
 	
 	/**
 	 * public boolean empty()
-	 *
 	 * returns true if and only if the tree is empty
-	 *
 	 */
 	public boolean empty() { //O(1)
 		if (this.numberOfNodes == 0)
@@ -96,6 +107,12 @@ public class RBTree {
 	   return insertFixup(z);
 	}
 	
+	/**
+	 * The fixup needed after an insert operations.
+	 * After this function is called the RBTree is legal
+	 * @param x - the inserted node
+	 * @return the number of color switches made
+	 */
 	private int insertFixup(RBNode z) {
 		RBNode y;
 		int counter = 0;
@@ -175,7 +192,11 @@ public class RBTree {
 		
 		return counter;
 	}
-	
+
+	/**
+	 * helper function for rotating a subtree to the left.
+	 * @param x 
+	 */
 	private void leftRotate(RBNode x) { //O(1)
 		RBNode y = x.right;
 		
@@ -190,6 +211,10 @@ public class RBTree {
 		y.setLeft(x);
 	}
 	
+	/**
+	 * helper function for rotating a subtree to the right.
+	 * @param x 
+	 */
 	private void rightRotate(RBNode x) { //O(1)
 		RBNode y = x.left;
 		
@@ -260,7 +285,12 @@ public class RBTree {
 		return counter;
 	}
 
-
+	/**
+	 * The fixup needed after a delete operations.
+	 * After this function is called the RBTree is legal
+	 * @param x - the deleted node's father
+	 * @return the number of color switches made
+	 */
 	private int deleteFixup(RBNode x) { //O(logn)
 		int counter = 0;
 		RBNode brother;
@@ -381,7 +411,12 @@ public class RBTree {
 		   return null;			 
 	   return minimum.val;
 	}
-   
+	
+	/**
+	 *  Returns the minimum element in the tree.
+	 *  Does it by starting from the head and going downwards to the left.
+	 * @return the minimum.
+	 */
 	public RBNode getMin() //O(logn)
 	{
 	   RBNode x = head;
@@ -403,6 +438,11 @@ public class RBTree {
 	   return maximum.val;
 	}
 	
+	/**
+	 *  Returns the maximum element in the tree.
+	 *  Does it by starting from the head and going downwards to the right.
+	 * @return the maximum node
+	 */
 	public RBNode getMax() //O(logn)
 	{
 	   RBNode x = head;
@@ -484,11 +524,21 @@ public class RBTree {
 	   return true;
    }
    
+   /**
+    * Checks whether a certain element is a left child of its father.
+    * @param node - the node to check
+    * @return boolean 
+    */
    public boolean AmILeft (RBNode node){  //O(1)
 	   RBNode parent = node.parent;
 	   return parent.left.equals(node);
    }
    
+   /**
+    * Returns the successor of a certain element.
+    * @param node - the node that its successor we want to find
+    * @return the successor.
+    */
    public RBNode findSuccesor(RBNode node) { //O(logn)
 	   RBNode x;
 	   if (IsLeaf(node.right)== false){
@@ -505,6 +555,13 @@ public class RBTree {
 	   return x.parent;
    }
    
+   /**
+    * Returns the position of a certain element if exist.
+    * if it desn't exist it returns where it should be inserted.
+    * @param key - the key
+    * @param node - the node
+    * @return the position
+    */ 
    private RBNode treePosition(int key, RBNode node) {  //O(logn)
 
 	   if (key == node.key) {
