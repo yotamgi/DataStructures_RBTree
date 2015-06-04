@@ -190,9 +190,6 @@ public class RBTree {
 		y.setLeft(x);
 	}
 	
-	
-	
-	
 	private void rightRotate(RBNode x) { //O(1)
 		RBNode y = x.left;
 		
@@ -225,7 +222,7 @@ public class RBTree {
 		RBNode y;  // y is the element we will delete eventually
 		if ((z.left.equals(dummyNode)) || (z.right.equals(dummyNode))){
 			y = z;		//either the original	
-		} else{
+		} else {
 			y = findSuccesor(z);  //or its successor
 		}
 		
@@ -295,7 +292,6 @@ public class RBTree {
 				}//brother is black in both cases - leads to cases 2,3 or 4
 			}	
 			
-			
 			if ((brother.left.color == false) && (brother.right.color == false)){
 				
 				//case 2: both children of brother are black
@@ -363,7 +359,7 @@ public class RBTree {
 					brother.left.color = false;
 					rightRotate(parent);
 					break;
-					}
+				}
 			}
 		}
 		if (x.color == true){
@@ -373,48 +369,48 @@ public class RBTree {
 		return counter;
 	}
 
-/**
-    * public String min()
-    *
-    * Returns the value of the item with the smallest key in the tree,
-    * or null if the tree is empty
-    */
-   public String min() //O(1)
-   {
+	/**
+     * public String min()
+     *
+     * Returns the value of the item with the smallest key in the tree,
+     * or null if the tree is empty
+     */
+	public String min() //O(1)
+	{
 	   if (this.empty())
 		   return null;			 
 	   return minimum.val;
-   }
+	}
    
-   public RBNode getMin() //O(logn)
-   {
+	public RBNode getMin() //O(logn)
+	{
 	   RBNode x = head;
 	   while (this.IsLeaf(x.left)== false)
 		   x = x.left;
 	   return x;
-   }
-
-   /**
-    * public String max()
-    *
-    * Returns the value of the item with the largest key in the tree,
-    * or null if the tree is empty
-    */
-   public String max() // O(1)
-   {
+	}
+	
+	/**
+	 * public String max()
+	 *
+	 * Returns the value of the item with the largest key in the tree,
+	 * or null if the tree is empty
+	 */
+	public String max() // O(1)
+	{
 	   if (this.empty())
 		   return null;
 	   return maximum.val;
-   }
-
-   public RBNode getMax() //O(logn)
-   {
+	}
+	
+	public RBNode getMax() //O(logn)
+	{
 	   RBNode x = head;
 	   x = x.left;
 	   while (this.IsLeaf(x.right)== false)
 		   x = x.right;
 	   return x;
-   }
+	}
    
   /**
    * public int[] keysToArray()
